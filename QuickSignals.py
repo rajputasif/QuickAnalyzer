@@ -834,30 +834,29 @@ if plotDefault:
     data = mo.getQuickData(valDefault)
     plot_raw_data(data.reset_index(),'Quick Data for '+valDefault)
 
-else:
-    stocks = db.dailyData.distinct("symbol")
+stocks = db.dailyData.distinct("symbol")
 
-    # st.text(stocks)
-    def remove_values_from_list(the_list, val):
-        return [value for value in the_list if value != val]
+# st.text(stocks)
+def remove_values_from_list(the_list, val):
+    return [value for value in the_list if value != val]
 
-    stocks = remove_values_from_list(stocks,'Karachi 100')
-    stocks = remove_values_from_list(stocks,'Karachi Meezan 30')
-    stocks = remove_values_from_list(stocks,'OGTi')
-    stocks = remove_values_from_list(stocks,'BKTi')
+stocks = remove_values_from_list(stocks,'Karachi 100')
+stocks = remove_values_from_list(stocks,'Karachi Meezan 30')
+stocks = remove_values_from_list(stocks,'OGTi')
+stocks = remove_values_from_list(stocks,'BKTi')
 
-    stocks.insert(0, 'BKTi')
-    stocks.insert(0, 'OGTi')
-    stocks.insert(0, 'Karachi Meezan 30')
-    stocks.insert(0, 'Karachi 100')
-    
-    with st.form('Add Stocks',clear_on_submit=False):
-        stocksToAdd = st.selectbox('Ticker*:',stocks)
-        addStockButton = st.form_submit_button('Analyze!!!')
+stocks.insert(0, 'BKTi')
+stocks.insert(0, 'OGTi')
+stocks.insert(0, 'Karachi Meezan 30')
+stocks.insert(0, 'Karachi 100')
 
-        if addStockButton: 
-            data = mo.getQuickData(stocksToAdd)
-            plot_raw_data(data.reset_index(),'Quick Data for '+stocksToAdd)
+with st.form('Add Stocks',clear_on_submit=False):
+    stocksToAdd = st.selectbox('Ticker*:',stocks)
+    addStockButton = st.form_submit_button('Analyze!!!')
+
+    if addStockButton: 
+        data = mo.getQuickData(stocksToAdd)
+        plot_raw_data(data.reset_index(),'Quick Data for '+stocksToAdd)
     
     
     # stocksToAdd = mo.getGotStocks('asifrajput')['actualSym'].to_list()
